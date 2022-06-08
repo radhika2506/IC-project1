@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,31 +14,29 @@ namespace Project1
         { 
          // maximise the window
         driver.Manage().Window.Maximize();
-            // launch turn up portal
+         // launch turn up portal
             driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
-
-        // identify username text box and enter valid credentials
-        IWebElement userName = driver.FindElement(By.Id("UserName"));
-        userName.SendKeys("hari");
-
-            // identify password textbox and enter valid password
-            IWebElement password = driver.FindElement(By.Id("Password"));
-        password.SendKeys("123123");
-
-            // identify login botton and click
-            driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[3]/input[1]")).Click();
-
-        // check if user logged in successfully
-        IWebElement helloHari = driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a"));
-
-            if (helloHari.Text == "Hello hari!")
+            try
             {
-                Console.WriteLine("Logged in successfully, test passed.");
+
+
+                // identify username text box and enter valid credentials
+                IWebElement userName = driver.FindElement(By.Id("UserName"));
+                userName.SendKeys("hari");
+
+                // identify password textbox and enter valid password
+                IWebElement password = driver.FindElement(By.Id("Password"));
+                password.SendKeys("123123");
+
+                // identify login botton and click
+                driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[3]/input[1]")).Click();
             }
-            else
+            catch(Exception ex)
             {
-                Console.WriteLine("Login failed, test failed.");
+                Assert.Fail("Turnup Portal page did not launch.", ex.Message);
             }
+        
+            
         }
 
       

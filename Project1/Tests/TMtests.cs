@@ -1,68 +1,50 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using Project1.Utilities;
 using System;
 using System.Threading;
 
 namespace Project1
 {
-    class TMtests
+    [TestFixture]
+    [Parallelizable]
+    class TMtests : CommonDriver
+
     {
-        static void Main(string[] args)
-        {
-            // open chrome browser
-            IWebDriver driver = new ChromeDriver();
-
-            //Loginpage object intialization and defining
-            Loginpage loginpageobj = new Loginpage();
-            loginpageobj.Loginsteps(driver);
-
-            // Homepage object intialization and defining
+        
+            
+            TMPage tmpageobj = new TMPage();
             Homepage homepageobj = new Homepage();
-            homepageobj.GoToTMpage(driver);
+
+        [Test, Order(1), Description("create time and material record with valid data")]
+            public void CreateTMPage()
+            {
+            // Homepage object intialization and defining
+                homepageobj.GoToTMpage(driver);
 
             //TMpage object intialization and defining
-            TMpage tmpageobj = new TMpage();
-            tmpageobj.CreateTM(driver);
+                tmpageobj.CreateTM(driver);
+            }
 
-            // Edit object intialization and defining
-            tmpageobj.EditTM(driver);
+            [Test, Order(2), Description("Edit time and material record created in test number 1")]
+            public void EditTMPage()
+            {
+            // Homepage object intialization and defining
+               homepageobj.GoToTMpage(driver);
+            //EditTM page object intialization and defining
+               tmpageobj.EditTM(driver);
+            }
 
-
-            // deleteobject intialization and defining
-
-            tmpageobj.DeleteTM(driver);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
+            [Test, Order(3), Description("Delete time and material record edited in test number 2")]
+            public void DeleteTMPage()
+            {
+            // Homepage object intialization and defining
+               homepageobj.GoToTMpage(driver);
+            //EditTM page object intialization and defining
+               tmpageobj.DeleteTM(driver);
+            }
+      
     }
+
 }
