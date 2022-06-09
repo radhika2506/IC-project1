@@ -15,7 +15,7 @@ namespace Project1
             driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[2]/span")).Click();
             Thread.Sleep(2000);
             //select material from the typecode dropdown
-            driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[2]")).Click();
+            driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[1]")).Click();
 
             // find the code textbox and input a code
             IWebElement codetextbox = driver.FindElement(By.Id("Code"));
@@ -39,7 +39,7 @@ namespace Project1
             // click on go to last page of the record
             IWebElement gotolastpage = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
             gotolastpage.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             //check if new maretial record has created
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
@@ -50,7 +50,7 @@ namespace Project1
             Assert.That(newCode.Text == "1234", "Actualcode and Expected Code do not match");
             Assert.That(newTypeCode.Text == "M", "Actual Typecode and Expected Typecode do not match");
             Assert.That(newDescription.Text == "selenium1", "Actual description and Expected description do not match");
-            Assert.That(newPrice.Text == "$10:00", "Actual price and Expected price do not match");
+            Assert.That(newPrice.Text == "$10.00", "Actual price and Expected price do not match");
         }
 
         //Identify the editbutton and click 
@@ -119,7 +119,7 @@ namespace Project1
             IWebElement newCodeCreated = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
             // Assertion
-            Assert.That(newCodeCreated.Text == " xyz123", "Actual code and expected code do not match.");
+            Assert.That(newCodeCreated.Text != " xyz123", "Actual code and expected code do not match.");
         }  
         public void DeleteTM(IWebDriver driver)
         {
